@@ -19,7 +19,7 @@ app.post('/upload', function (req, res) {
   }
 
   // The name of the input field (i.e. "files" <input name="files" />) is used to retrieve the uploaded file
-  let sampleFile = req.files.files
+  const sampleFile = req.files.files
   const size = sampleFile.data.length
   if (size > 4 * 1024 * 1024) {
     return res.json({
