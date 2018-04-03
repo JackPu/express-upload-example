@@ -1,9 +1,9 @@
-const chalk = require('chalk')
-const express = require('express')
-const fileUpload = require('express-fileupload')
-const path = require('path')
+var chalk = require('chalk')
+var express = require('express')
+var fileUpload = require('express-fileupload')
+var path = require('path')
 
-const app = express()
+var app = express()
 
 // default options
 app.use(fileUpload())
@@ -19,8 +19,8 @@ app.post('/upload', function (req, res) {
   }
 
   // The name of the input field (i.e. "files" <input name="files" />) is used to retrieve the uploaded file
-  const sampleFile = req.files.files
-  const size = sampleFile.data.length
+  var sampleFile = req.files.files
+  var size = sampleFile.data.length
   if (size > 4 * 1024 * 1024) {
     return res.json({
       error: 1002,
