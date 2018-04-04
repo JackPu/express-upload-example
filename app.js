@@ -1,6 +1,7 @@
 var chalk = require('chalk')
 var express = require('express')
 var fileUpload = require('express-fileupload')
+var cors = require('cors')
 var path = require('path')
 
 var app = express()
@@ -10,11 +11,7 @@ app.use(fileUpload())
 app.use(express.static('images'))
 
 // enable cros
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  next()
-})
+app.use(cors())
 
 app.post('/upload', function (req, res) {
   if (!req.files) {
@@ -43,11 +40,11 @@ app.post('/upload', function (req, res) {
     return res.json({
       error: 0,
       data: {
-        url: 'http://' + req.headers.host + '/' + sampleFile.name,
+        src: 'http://' + req.headers.host + '/' + sampleFile.name,
         name: sampleFile.name,
         size: size
       },
-      message: 'file is two larger (< 2M)'
+      message: ''
     })
   })
 })
