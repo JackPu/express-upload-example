@@ -1,19 +1,33 @@
 var chalk = require('chalk')
+var cors = require('cors')
 var express = require('express')
 var fileUpload = require('express-fileupload')
-var cors = require('cors')
+
 var path = require('path')
 
 var app = express()
+
+var whitelist = ['http://localhost:8090', 'http://localhost:4000', 'http://vanthink-ued.github.io']
+var corsOptions = {
+  origin: function (origin, callback) {
+    console.log(origin)
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true
+}
+
+// enable cros
+// app.use(cors(corsOptions))
 
 // default options
 app.use(fileUpload())
 app.use(express.static('images'))
 
-// enable cros
-app.use(cors())
-
-app.post('/upload', function (req, res) {
+app.post('/upload', cors(corsOptions), function (req, res) {
   if (!req.files) {
     console.log('no files')
     return res.json({
