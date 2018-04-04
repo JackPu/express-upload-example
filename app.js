@@ -9,6 +9,13 @@ var app = express()
 app.use(fileUpload())
 app.use(express.static('images'))
 
+// enable cros
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
+
 app.post('/upload', function (req, res) {
   if (!req.files) {
     console.log('no files')
@@ -36,7 +43,7 @@ app.post('/upload', function (req, res) {
     return res.json({
       error: 0,
       data: {
-        url: req.headers.host + '/' + sampleFile.name,
+        url: 'http://' + req.headers.host + '/' + sampleFile.name,
         name: sampleFile.name,
         size: size
       },
