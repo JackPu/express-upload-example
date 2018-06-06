@@ -52,7 +52,7 @@ app.post('/upload', cors(corsOptions), function (req, res) {
       return res.status(500).send(err)
     }
     return res.json({
-      error: 0,
+      errcode: 0,
       data: {
         src: 'http://' + req.headers.host + '/' + sampleFile.name,
         name: sampleFile.name,

@@ -11,7 +11,7 @@ npm-debug.log
 node_modules
 *.log
 *.gz
-
+images
 coverage
 test/uploads
 test/manual/uploads/*
